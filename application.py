@@ -7,10 +7,12 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
+
 db = SQLAlchemy(app)
 
 from model.stock import stock
 from model.article import Article
+
 
 @app.route('/hello')
 def hello_world():
@@ -20,7 +22,6 @@ def hello_world():
 @app.route('/user/<username>/<int:other>')
 def show_username(username, other):
     return 'Hello, {}, {}'.format(username, other)
-
 
 @app.route('/add_article', methods=['GET', 'POST'])
 def add_article():

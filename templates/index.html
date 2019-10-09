@@ -27,6 +27,9 @@
                 <td>
                     quantité
                 </td>
+                <td>
+                    suppression
+                </td>
             </thead>
             {% for entry in entries %}
                 <tr>
@@ -44,6 +47,9 @@
                     </td>
                     <td>
                         {{ entry.quantity }}
+                    </td>
+                    <td>
+                        {{ entry.article.delete }}
                     </td>
                 </tr>
             {% endfor %}

@@ -146,6 +146,8 @@ on peut dès lors supprimer le constructeur qui n'est plus utile
 
 et on commente tous les articles en bas pour pas qu'il s'incrémente à chaque lancement de serveur puisqu'il y a dorénavant la persistence des données.
 
+de même on comment tous les articles en bas dans le fichier stock.py
+
 ### MISE A JOUR FICHIER STOCK_ENTRY.PY
 
 mise à jour des imports
@@ -240,4 +242,43 @@ db = SQLAlchemy(app)
 
 from model.stock import stock
 from model.article import Article
+```
+
+# DANS LE SHELL DE FLASK
+
+taper
+```
+flask shell
+```
+
+```
+from application import db
+```
+
+on utilise une méthode de sqlalchemy pour créer le schéma de la bd
+```
+db.create_all()
+```
+
+un fichier data.db a été crée dans notre environnement.
+
+> pour lire ce fihier nous allons installer un logiciel 
+https://sqlitebrowser.org/dl/
+
+
+### COMMENT RECUPERER UN OBJET DE PAR SON ID
+
+Get Model by value:
+```
+entry = StockEntry.query.filter_by(article_id=xx).first()
+article = StockEntry.query.filter_by(id=xx).first()
+```
+
+### AJOUTER UNE SUPRRESSION
+
+```
+db.session.delete(entry)
+db.session.delete(article)
+db.session.commit()
+
 ```

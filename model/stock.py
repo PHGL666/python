@@ -2,6 +2,14 @@ from model.article import *
 from model.stock_entry import StockEntry
 from application import db
 
+# entry = StockEntry.query.filter_by(article_id=xx).first()
+# article = StockEntry.query.filter_by(id=xx).first()
+
+# db.session.delete(entry)
+# db.session.delete(article)
+# db.session.commit()
+
+
 class Stock:
     def entries(self):
         return StockEntry.query.all()
