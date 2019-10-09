@@ -30,7 +30,7 @@ class Stock:
         self.addArticleQuantity(article, quantity)
 
 stock = Stock()
-stock.addArticleQuantity(article, 1)
-stock.addArticleQuantity(article2, 10)
-stock.addArticleQuantity(article3, 20)
+# stock.addArticleQuantity(article, 1)
+# stock.addArticleQuantity(article2, 10)
+# stock.addArticleQuantity(article3, 20)
 # stock.print()

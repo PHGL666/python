@@ -1,14 +1,16 @@
 from flask import Flask
 from flask import render_template  # Jinja2
 from flask import request
-from model.stock import stock
 from flask import redirect, url_for
-from model.article import Article
 from flask_sqlalchemy import SQLAlchemy
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
 db = SQLAlchemy(app)
+
+from model.stock import stock
+from model.article import Article
 
 @app.route('/hello')
 def hello_world():

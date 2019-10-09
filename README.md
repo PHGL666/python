@@ -225,3 +225,19 @@ def index():
     return render_template('index.html', entries=stock.entries())
 ```
 
+dans application.py mise à jour de l'ordre des imports
+```
+from flask import Flask
+from flask import render_template  # Jinja2
+from flask import request
+from flask import redirect, url_for
+from flask_sqlalchemy import SQLAlchemy
+
+
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
+db = SQLAlchemy(app)
+
+from model.stock import stock
+from model.article import Article
+```

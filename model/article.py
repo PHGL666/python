@@ -1,5 +1,4 @@
-import application import db
-
+from application import db
 
 class Article(db.Model):
 

@@ -1,4 +1,3 @@
-from model.article import db
 from application import db
 
 
