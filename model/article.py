@@ -22,6 +22,11 @@ class Article(db.Model):
         article = Article(name, description, price)
         return article
 
+    def update(self, values):
+        self.name = values['name']
+        self.description = values['description']
+        self.price = int(values['price'])
+        db.session.commit()
 
 # article = Article(name='Macbook', description='Ordinateur Apple', price=1500)
 # article.print()

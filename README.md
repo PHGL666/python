@@ -2,7 +2,7 @@
 
 https://flask.palletsprojects.com/en/1.1.x/installation/
 
-> LANCER WAMP SERVER
+
 
 ## Préparer l'environnement virtuel
 Il faut un environnement virtuel (venv) pour encapsuler python et flask.
@@ -290,7 +290,7 @@ dans l'index.html
 <button href="/delete_article/{{ entry.article.id }}" class="btn btn-danger">Supprimer</button>
 ```
 
-dans application on crée la route de suppression
+dans application.py on crée la route de suppression
 ```
 @app.route('/delete_article/<int:article_id>')
     def deleteArticle(article_id):
@@ -308,5 +308,32 @@ dans stock.py
 
 dans application.py
 ```
+@app.rout('/delete_article/<int:article_id>')
+def deleteArticle(article_id):
+    stock.deleteArticleById(article_id)
+    return redirect(url_for('index'))
+```
 
+### AJOUTER UNE MODIFICATION
+
+créer la route dans application.py
+```
+@app.route('/edit_article/<int:article_id>', methods=['GET', 'POST'])
+def edit_article(article_id):
+    article = Article.query.filter_by(id=article_id).first()
+    if request.method == 'GET':
+        return render_template('edit_article.html', article=article)
+    else:
+        article.update(request.form)
+
+        return redirect(url_for('index'))
+```
+
+puis dans article.py on crée la méthode update
+```
+    def update(self, values):
+        self.name = values['name']
+        self.description = values['description']
+        self.price = int(values['price'])
+        db.session.commit()
 ```

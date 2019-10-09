@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Stocks</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 </head>
+
 <body>
     <div class="container">
         <h1>Stock :</h1>
@@ -28,32 +33,39 @@
                     quantité
                 </td>
                 <td>
+                    modification
+                </td>
+                <td>
                     suppression
                 </td>
             </thead>
             {% for entry in entries %}
-                <tr>
-                    <td>
-                        {{ entry.article.id }}
-                    </td>
-                    <td>
-                        {{ entry.article.name }}
-                    </td>
-                    <td>
-                        {{ entry.article.description }}
-                    </td>
-                    <td>
-                        {{ entry.article.price }}
-                    </td>
-                    <td>
-                        {{ entry.quantity }}
-                    </td>
-                    <td>
-                        <a href="/delete_article/{{ entry.article.id }}" class="btn btn-danger">Supprimer</a>
-                    </td>
-                </tr>
+            <tr>
+                <td>
+                    {{ entry.article.id }}
+                </td>
+                <td>
+                    {{ entry.article.name }}
+                </td>
+                <td>
+                    {{ entry.article.description }}
+                </td>
+                <td>
+                    {{ entry.article.price }}
+                </td>
+                <td>
+                    {{ entry.quantity }}
+                </td>
+                <td>
+                    <a href="/edit_article/{{ entry.article.id }}" class="btn btn-warning">Modifier</a>
+                </td>
+                <td>
+                    <a href="/delete_article/{{ entry.article.id }}" class="btn btn-danger">Supprimer</a>
+                </td>
+            </tr>
             {% endfor %}
         </table>
     </div>
 </body>
+
 </html>

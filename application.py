@@ -37,6 +37,16 @@ def add_article():
 
         return redirect(url_for('index'))
 
+@app.route('/edit_article/<int:article_id>', methods=['GET', 'POST'])
+def edit_article(article_id):
+    article = Article.query.filter_by(id=article_id).first()
+    if request.method == 'GET':
+        return render_template('edit_article.html', article=article)
+    else:
+        article.update(request.form)
+
+        return redirect(url_for('index'))
+
 @app.route('/delete_article/<int:article_id>')
 def deleteArticle(article_id):
     stock.deleteArticleById(article_id)
