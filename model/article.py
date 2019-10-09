@@ -1,15 +1,12 @@
 import application import db
 
+
 class Article(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
-
-    def __init__(self, name, description, price):
-        Article.currentId += 1
-        self.id = Article.currentId
-        self.name = name
-        self.description = description
-        self.price = price
+    name = db.Column(db.String(80), nullable=False)
+    description = db.Column(db.String(120), nullable=False)
+    price = db.Column(db.Integer, nullable=False)
 
     def print(self):
         print('[{}] Article {} - {}€ : \n{}'.format(self.id, self.name, self.price, self.description))
@@ -26,11 +23,12 @@ class Article(db.Model):
         article = Article(name, description, price)
         return article
 
-article = Article('Macbook', 'Ordinateur Apple', 1500)
+
+# article = Article(name='Macbook', description='Ordinateur Apple', price=1500)
 # article.print()
 
-article2 = Article('Article2', 'Description2', 300)
+# article2 = Article('Article2', 'Description2', 300)
 # article2.print()
 
-article3 = Article('Article3', 'Description 3', 100)
+# article3 = Article('Article3', 'Description 3', 100)
 # article3.print()

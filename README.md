@@ -109,6 +109,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
 db = SQLAlchemy(app)
 ```
 
+### MISE A JOUR FICHIER ARTICLE.PY
+
 dans article.py on import notre db
 ```
 import application import db
@@ -116,13 +118,88 @@ import application import db
 et on met à jour la class et on 
 ```
 class Article(db.Model):
-
-    id = db.Column(db.Integer, primary_key=True)
 ```
 > OBS : 
 1ier int entrée qui n'est
 pas une foreign key et qui est une
 primary key
-=> sera avec python la prmeière ID QUI SINCREMENTE AUTOMATIQUEMENT
+=> sera avec python la prmeière ID QUI S'AUTOINCREMENTE
 
+on met à jour la table de données avec les variables suivantes
+```
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), nullable=False)
+    description = db.Column(db.String(120), nullable=False)
+    price = db.Column(db.Integer, nullable=False)
+```
+
+on peut dès lors supprimer le constructeur qui n'est plus utile
+```
+    def __init__(self, name, description, price):
+        Article.currentId += 1
+        self.id = Article.currentId
+        self.name = name
+        self.description = description
+        self.price = price
+```
+> en effet db.Model se basera sur les variables créer pour lui même créer un constructeur automatiquement. 
+
+et on commente tous les articles en bas pour pas qu'il s'incrémente à chaque lancement de serveur puisqu'il y a dorénavant la persistence des données.
+
+### MISE A JOUR FICHIER STOCK_ENTRY.PY
+
+mise à jour des imports
+```
+from model.article import db
+from application import db
+```
+
+mise à jour de la class
+```
+class StockEntry(db.Model):
+```
+
+puis on ajoute les liens
+```
+article_id = db.Column(db.Integer, db.ForeignKey('article.id'), primary_key=True, nullable=False)
+```
+
+### MISE A JOUR FICHIER STOCK.PY
+
+c'est la class Stock qui va faire les requêtes en base de données. 
+
+mise à jour des imports
+```
+from model.article import *
+from model.stock_entry import StockEntry
+from application import db
+```
+
+mise à jour de la class
+```
+class Stock:
+    def entries(self):
+        return StockEntry.query.all()
+```
+> OBS : il n'est pas utilise de mettre Stock en base de donnée donc on n'ajoute pas db.Model.
+
+```
+    def addArticleQuantity(self, article, quantity):
+    entry = StockEntry(article=article, quantity=quantity)
+    db.session.add(entry)
+    db.session.commit()
+```
+> le db.session permet d'appliquer les modifications sur la base de données
+
+ajout des parenthèses au entries dans le print pour pouvoir appeler la fonction entries
+```
+    def print(self):
+        print('************************')
+        totalPrice = 0
+        for entry in self.entries():
+            print(entry.toString())
+            totalPrice += entry.price()
+        print('Total stock : {}€'.format(totalPrice))
+        print('************************')
+```
 

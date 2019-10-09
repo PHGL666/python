@@ -1,13 +1,15 @@
-from article import *
-from stock_entry import StockEntry
+from model.article import *
+from model.stock_entry import StockEntry
+from application import db
 
 class Stock:
-    def __init__(self):
-        self.entries = []
+    def entries(self):
+        return StockEntry.query.all()
 
     def addArticleQuantity(self, article, quantity):
-        entry = StockEntry(article, quantity)
-        self.entries.append(entry)
+        entry = StockEntry(article=article, quantity=quantity)
+        db.session.add(entry)
+        db.session.commit()
 
     def addStockEntry(self, entry):
         self.entries.append(entry)
@@ -15,7 +17,7 @@ class Stock:
     def print(self):
         print('************************')
         totalPrice = 0
-        for entry in self.entries:
+        for entry in self.entries():
             print(entry.toString())
             totalPrice += entry.price()
         print('Total stock : {}€'.format(totalPrice))
