@@ -203,3 +203,25 @@ ajout des parenthèses au entries dans le print pour pouvoir appeler la fonction
         print('************************')
 ```
 
+dans APPLICATION.PY mise à jour des routes
+```
+@app.route('/add_article', methods=['GET', 'POST'])
+def add_article():
+    if request.method == 'GET':
+        return render_template('add_article.html')
+    else:
+        articleName = request.form['name']
+        articleDescription = request.form['description']
+        articlePrice = request.form['price']
+
+        article = Article(name=articleName, description=articleDescription, price=int(articlePrice))
+        stock.addArticleQuantity(article, 1)
+
+        return redirect(url_for('index'))
+
+
+@app.route('/')
+def index():
+    return render_template('index.html', entries=stock.entries())
+```
+

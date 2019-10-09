@@ -29,7 +29,7 @@ def add_article():
         articleDescription = request.form['description']
         articlePrice = request.form['price']
 
-        article = Article(articleName, articleDescription, int(articlePrice))
+        article = Article(name=articleName, description=articleDescription, price=int(articlePrice))
         stock.addArticleQuantity(article, 1)
 
         return redirect(url_for('index'))
@@ -37,4 +37,4 @@ def add_article():
 
 @app.route('/')
 def index():
-    return render_template('index.html', entries=stock.entries)
+    return render_template('index.html', entries=stock.entries())
