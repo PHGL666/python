@@ -49,7 +49,7 @@
                         {{ entry.quantity }}
                     </td>
                     <td>
-                        {{ entry.article.delete }}
+                        <a href="/delete_article/{{ entry.article.id }}" class="btn btn-danger">Supprimer</a>
                     </td>
                 </tr>
             {% endfor %}

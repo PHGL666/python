@@ -277,8 +277,36 @@ article = StockEntry.query.filter_by(id=xx).first()
 ### AJOUTER UNE SUPRRESSION
 
 ```
-db.session.delete(entry)
-db.session.delete(article)
-db.session.commit()
+# entry = StockEntry.query.filter_by(article_id=xx).first()
+# article = StockEntry.query.filter_by(id=xx).first()
+
+# db.session.delete(entry)
+# db.session.delete(article)
+# db.session.commit()
+```
+
+dans l'index.html
+```
+<button href="/delete_article/{{ entry.article.id }}" class="btn btn-danger">Supprimer</button>
+```
+
+dans application on crée la route de suppression
+```
+@app.route('/delete_article/<int:article_id>')
+    def deleteArticle(article_id):
+```
+
+dans stock.py
+```
+    def deleteArticleById(self, article_id):
+        entry = StockEntry.query.filter_by(article_id=article_id).first()
+        article = Article.query.filter_by(id=article_id).first()
+        db.session.delete(entry)
+        db.session.delete(article)
+        db.session.commit()
+```
+
+dans application.py
+```
 
 ```

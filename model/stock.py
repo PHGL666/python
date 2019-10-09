@@ -1,14 +1,6 @@
-from model.article import *
+from model.article import  *
 from model.stock_entry import StockEntry
 from application import db
-
-# entry = StockEntry.query.filter_by(article_id=xx).first()
-# article = StockEntry.query.filter_by(id=xx).first()
-
-# db.session.delete(entry)
-# db.session.delete(article)
-# db.session.commit()
-
 
 class Stock:
     def entries(self):
@@ -19,8 +11,16 @@ class Stock:
         db.session.add(entry)
         db.session.commit()
 
+    def deleteArticleById(self, article_id):
+        entry = StockEntry.query.filter_by(article_id=article_id).first()
+        article = Article.query.filter_by(id=article_id).first()
+        db.session.delete(entry)
+        db.session.delete(article)
+        db.session.commit()
+
     def addStockEntry(self, entry):
-        self.entries.append(entry)
+        db.session.add(entry)
+        db.session.commit()
 
     def print(self):
         print('************************')
@@ -30,15 +30,14 @@ class Stock:
             totalPrice += entry.price()
         print('Total stock : {}€'.format(totalPrice))
         print('************************')
-
+    
     def addArticle(self):
-        article = Article.createArticle() #puiseque cest une méthode de class qu'il récupère je met un A majuscule a Article
+        article = Article.createArticle()
         quantity = int(input("Quantité de l'article : "))
-        # on utilise la méthode addArticleQuantity ci-dessus pour importer notre article nouvellement instancier dans le stock
         self.addArticleQuantity(article, quantity)
 
 stock = Stock()
-# stock.addArticleQuantity(article, 1)
-# stock.addArticleQuantity(article2, 10)
-# stock.addArticleQuantity(article3, 20)
-# stock.print()
+#stock.addArticleQuantity(article, 1)
+#stock.addArticleQuantity(article2, 10)
+#stock.addArticleQuantity(article3, 20)
+#stock.print()

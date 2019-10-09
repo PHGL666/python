@@ -37,6 +37,10 @@ def add_article():
 
         return redirect(url_for('index'))
 
+@app.route('/delete_article/<int:article_id>')
+def deleteArticle(article_id):
+    stock.deleteArticleById(article_id)
+    return redirect(url_for('index'))
 
 @app.route('/')
 def index():
